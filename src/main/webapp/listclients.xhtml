@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet name="css/bootstrap.min.css"></h:outputStylesheet>
+	<h:outputStylesheet name="css/main.css"></h:outputStylesheet>
+	<h:outputStylesheet name="css/form-register.css"></h:outputStylesheet>
+	<h:outputScript name="js/bootstrap.js"></h:outputScript>
+</h:head>
+<body class="">
+	<div class="container p-4 m-5">
+	<h:form>  
+	<div class="row my-3">
+	   <div class="col-5 row">
+	       <div class="col-4">Search by Name:</div>
+	       <div class="col-8"><h:inputText id="filter" class="form-control" value="#{clientBean.filter}"></h:inputText></div>
+	   </div>
+	   <div class="col-3">
+	      <h:commandButton value="filter" action="#{clientBean.filterClients}" class="btn btn-primary mx-1" />
+	      <h:commandButton value="+" action="createclient.xhtml" class="btn btn-success mx-1" />
+	   </div>
+	</div>
+	<h:dataTable class="table" binding="#{table}" value="#{clientBean.clientsList()}" var="client" >
+	    <h:column>  
+          <f:facet name="header">ID</f:facet>  
+          <h:outputText value="#{table.rowIndex + 1}"/>  
+        </h:column> 
+        <h:column>  
+          <f:facet name="header">FirstName</f:facet>  
+          <h:outputText value="#{client.firstname}"/>  
+        </h:column>
+        <h:column>  
+          <f:facet name="header">LastName</f:facet>  
+          <h:outputText value="#{client.lastname}"/>  
+        </h:column>
+        <h:column>  
+          <f:facet name="header">Email</f:facet>  
+          <h:outputText value="#{client.email}"/>  
+        </h:column>
+        <h:column>  
+          <f:facet name="header">Telephone</f:facet>  
+          <h:outputText value="#{client.telephone}"/>  
+        </h:column>
+        <h:column>  
+          <f:facet name="header">Actions</f:facet>  
+          <center>
+             <div class="row">
+                  <div class="col-6"><h:commandButton value="X" action="#{clientBean.removeClient(client.id)}" class="btn btn-danger"></h:commandButton></div>
+                  <div class="col-6 text-left">
+                    <h:link value="Edit" outcome="createclient.xhtml" target="_blank" class="btn btn-info">
+                       <f:param name="clientid" value="#{client.id}" />
+                    </h:link>
+                  </div>                 
+             </div>   
+          </center> 
+        </h:column>
+	</h:dataTable>
+	   </h:form>  
+	</div>
+</body>
+</html>
